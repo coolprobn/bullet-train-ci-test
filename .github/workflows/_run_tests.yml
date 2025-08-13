@@ -167,6 +167,9 @@ jobs:
           AUTH_ENDPOINT: https://no-site.nowhere
           AWS_REGION: us-east-1
           PARALLEL_TESTS_RECORD_RUNTIME: true
+          ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY }}
+          ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY }}
+          ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT }}
         run: |
           bundle exec parallel_test test \
           -n ${{ fromJson(needs.calculate_matrix.outputs.totalRunners) }} \
