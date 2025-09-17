@@ -1,0 +1,138 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+<% records_by_state = [
+  ["CA", 1],
+  ["TX", 5],
+  ["NY", 2],
+  ["VA", 20],
+  ["SC", 25]
+] %>
+
+<div 
+  data-controller="geo-chart"
+  data-geo-chart-chart-header-value="<%= ['State', 'Clients'] %>"
+  data-geo-chart-data-value="<%= records_by_state %>"
+  data-geo-chart-region-value="US"
+  data-geo-chart-resolution-value="provinces"
+  style="height: 400px;"
+></div>
+
+<%#= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<!---->
+<%#
+  records_by_state = [
+    {
+      "CA" => 1,
+      "TX" => 5,
+      "NY" => 2,
+      "VA" => 20,
+      "SC" => 25,
+    }
+  ]
+%>
+<!---->
+<%#= geo_chart records_by_state, library: { region: "US", resolution: "provinces" } %>
+
+
+<!--With leaflet maps-->
+<%#= stylesheet_link_tag "https://unpkg.com/leaflet/dist/leaflet.css" %>
+<%#= javascript_include_tag "https://unpkg.com/leaflet/dist/leaflet.js" %>
+<!---->
+<%#
+  records_by_state = {
+    "CA" => 1,
+    "TX" => 5,
+    "NY" => 2,
+    "VA" => 20,
+    "SC" => 25,
+  }
+%>
+<!--
+<div class="flex justify-center">
+  <div id="us-map" style="background: #ffffff; height: 500px; width: 50%"></div>
+</div>
+
+<script>
+  window.recordsByState = <%#= raw(records_by_state.to_json) %>;
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var map = L.map('us-map', {
+      zoomControl: false,
+      attributionControl: false,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false,
+      touchZoom: false
+    });
+
+    // Match Google GeoChart: solid blue states, light gray borders
+    function style(feature) {
+      var abbrev = feature.properties.postal; // "CA", "TX"
+      var value = window.recordsByState[abbrev];
+
+      if (value) {
+        return {
+          fillColor: '#4285F4',   // Google blue
+          weight: 1,
+          opacity: 1,
+          color: '#FFFFFF',       // white borders
+          fillOpacity: 1
+        };
+      } else {
+        return {
+          fillColor: '#E5E5E5',   // light gray fill
+          weight: 1,
+          opacity: 1,
+          color: '#FFFFFF',       // white borders
+          fillOpacity: 1
+        };
+      }
+    }
+
+    fetch('/geojson/us-states.json')
+      .then(res => res.json())
+      .then(data => {
+        var statesLayer = L.geoJson(data, {style: style}).addTo(map);
+        var bounds = statesLayer.getBounds();
+        map.fitBounds(bounds);
+        map.setMaxBounds(bounds);
+      });
+  });
+</script>-->
+
+
+<!--With Google GeoChart custom code instead of using chartkick-->
+<%#= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<!--
+<div id="regions_div" style="width: 900px; height: 500px;"></div>
+
+<script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['State', 'Value'],
+          ['CA', 1],
+          ['TX', 5],
+          ['NY', 2],
+          ['VA', 20],
+          ['SC', 25],
+        ]);
+
+        var options = {
+          resolution: 'provinces',
+          region: 'US',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>-->

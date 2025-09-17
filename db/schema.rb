@@ -35,7 +35,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_141219) do
     t.string "name", null: false
     t.text "body"
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
+    t.integer "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
@@ -64,7 +64,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_141219) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -185,7 +185,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_141219) do
   end
 
   create_table "scaffolding_absolutely_abstract_creative_concepts", force: :cascade do |t|
-    t.bigint "team_id", null: false
+    t.integer "team_id", null: false
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -194,7 +194,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_141219) do
   end
 
   create_table "scaffolding_completely_concrete_tangible_things", force: :cascade do |t|
-    t.bigint "absolutely_abstract_creative_concept_id", null: false
+    t.integer "absolutely_abstract_creative_concept_id", null: false
     t.string "text_field_value"
     t.string "button_value"
     t.string "cloudinary_image_value"
@@ -326,10 +326,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_141219) do
     t.jsonb "event_type_ids", default: []
     t.bigint "scaffolding_absolutely_abstract_creative_concept_id"
     t.integer "api_version", null: false
-    t.string "webhook_secret", null: false
     t.datetime "deactivation_limit_reached_at"
     t.datetime "deactivated_at"
     t.integer "consecutive_failed_deliveries", default: 0, null: false
+    t.string "webhook_secret", null: false
     t.index ["scaffolding_absolutely_abstract_creative_concept_id"], name: "index_endpoints_on_abstract_creative_concept_id"
     t.index ["team_id", "deactivated_at"], name: "idx_on_team_id_deactivated_at_d8a33babf2"
     t.index ["team_id"], name: "index_webhooks_outgoing_endpoints_on_team_id"

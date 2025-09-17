@@ -48,3 +48,6 @@ function overrideByIdentifier(controllers) {
 
   return Object.values(byIdentifier)
 }
+
+import GeoChartController from './geo_chart_controller'
+application.register('geo-chart', GeoChartController)
